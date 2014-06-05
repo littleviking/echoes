@@ -1,0 +1,4 @@
+name = Echoes
+description = Notify users when they form a basic, anonymous connection
+core = 7.x
+scripts[] = echoes.js

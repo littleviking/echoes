@@ -1,0 +1,5 @@
+<?php
+/**
+ * @file
+ * Client/server communication for the Echoes module.
+ */
