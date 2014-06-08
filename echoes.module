@@ -11,11 +11,13 @@ function echoes_menu() {
   $items['echoes/push'] = array(
     'page callback' => 'echoes_push',
     'access arguments' => array('send and receive echoes'),
+    'type' => MENU_CALLBACK,
   );
 
   $items['echoes/get'] = array(
     'page callback' => 'echoes_get',
     'access arguments' => array('send and receive echoes'),
+    'type' => MENU_CALLBACK,
   );
 
   return $items;
