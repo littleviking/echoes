@@ -3,3 +3,62 @@
  * @file
  * Client/server communication for the Echoes module.
  */
+
+/**
+ * Implements hook_menu().
+ */
+function echoes_menu() {
+  /*
+   *$items['blog'] = array(
+   *  'title' => 'blogs',
+   *  'page callback' => 'blog_page',
+   *  'access arguments' => array('access content'),
+   *  'type' => MENU_SUGGESTED_ITEM,
+   *);
+   */
+  $items['echoes/push'] = array(
+    'page callback' => 'echoes_push',
+    'access arguments' => array('send and receive echoes'),
+  );
+
+  $items['echoes/get'] = array(
+    'page callback' => 'echoes_get',
+    'access arguments' => array('send and receive echoes'),
+  );
+
+  return $items;
+}
+
+/**
+*
+*/
+function echoes_push () {
+  $euid = !empty($_GET['euid']) ? $_GET['euid'] : NULL;
+  $path = !empty($_GET['path']) ? $_GET['path'] : NULL;
+  $selector = !empty($_GET['selector']) ? $_GET['selector'] : NULL;
+  $created = !empty($_GET['created']) ? $_GET['created'] : NULL;
+
+  if (!$euid || !$path || !$selector || !$created) {
+    drupal_json_output(array('success' => false));
+    exit;
+  }
+
+  $echoes_data = variable_get('echoes_data', array());
+
+  $echoes_data[] = array(
+    'euid' => $euid,
+    'path' => $path,
+    'selector' => $selector,
+    'created' => $created,
+  );
+  variable_set('echoes_data', $echoes_data);
+  drupal_json_output(array('success' => true));
+}
+
+/**
+*
+*/
+function echoes_get () {
+  $echoes_data = variable_get('echoes_data', array());
+  drupal_json_output(array('data' => $echoes_data));
+}
