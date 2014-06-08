@@ -8,14 +8,6 @@
  * Implements hook_menu().
  */
 function echoes_menu() {
-  /*
-   *$items['blog'] = array(
-   *  'title' => 'blogs',
-   *  'page callback' => 'blog_page',
-   *  'access arguments' => array('access content'),
-   *  'type' => MENU_SUGGESTED_ITEM,
-   *);
-   */
   $items['echoes/push'] = array(
     'page callback' => 'echoes_push',
     'access arguments' => array('send and receive echoes'),
@@ -27,6 +19,18 @@ function echoes_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function echoes_permission() {
+  return array(
+    'send and receive echoes' =>  array(
+      'title' => t('Send and receive echoes'),
+      'description' => t('Allow users to participate with echoes functionality on the front end.'),
+    ),
+  );
 }
 
 /**
